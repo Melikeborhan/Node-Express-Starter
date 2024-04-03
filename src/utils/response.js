@@ -61,12 +61,6 @@ class Response {
             message: this.message ?? "ÇOK FAZLA İSTEK ATILDI!!"
         })
     }
-
-
-
-
-
-
 }
 
 module.exports =  Response

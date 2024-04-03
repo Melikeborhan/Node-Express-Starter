@@ -11,6 +11,9 @@ const errorHandlerMiddleware = (err,req,res,next)=>{
     }
     //api yı dınlerken hata varsa bu kısma dusmus olur boylece hata verırı
 
+    console.log(err);
+
+    
     return res.status(500).json({
         succes:false,
         message:"BİR HATA VAR LÜTFEN APİNİZİ KONTROL EDİNİZ!"

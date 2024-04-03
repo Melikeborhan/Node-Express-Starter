@@ -2,10 +2,36 @@ const user = require("../models/user.model")
 const bcrypt = require("bcrypt");
 const APIError = require("../utils/errors");
 const Response = require("../utils/response");
+const { createToken } = require("../middlewares/auth");
 
 
 const login =async (req,res) =>{
-    return res.json(req.body);
+
+    const{email,password} = (req.body)
+
+    const userInfo = await user.findOne({email}) //({email:req.body.email}) bu sekılde de cagırılabılır
+
+    console.log(userInfo);
+
+    //KULLANICI KONTROLU
+
+    if (!userInfo) //user yoksa
+
+        throw new APIError("Email ya da şifre hatalıdır",401)
+
+//SIFRE KONTROLU
+
+    const comparePassword = await bcrypt.compare(password,userInfo.password) //cozumleme yapılır
+    console.log(comparePassword);
+
+    //FALSE GELMISSE
+    if(!comparePassword)
+        throw new APIError("Email ya da şifre hatalıdır",401)
+
+
+
+    //return res.json(req.body);
+    createToken(userInfo,res);
 }
 
 const register =async (req,res) =>{
@@ -54,7 +80,17 @@ const register =async (req,res) =>{
 
 }
 
+
+const me  = async(req,res)=>{
+    // console.log("me fonksıyonu ıcınde");
+    // console.log(req.user);
+    return new Response(req.user).success(res)
+}
+
+
+
 module.exports = {
     login,
-    register
+    register,
+    me
 }
