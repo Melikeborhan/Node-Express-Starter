@@ -11,9 +11,10 @@ const errorHandlerMiddleware = (err,req,res,next)=>{
     }
     //api yı dınlerken hata varsa bu kısma dusmus olur boylece hata verırı
 
-    console.log(err);
+    console.log(err);//emaıl kısmına $gt $ne yazıldıgında bunu kabul edebılır bunun ıcın sınıtıze paketının kurduk ve bu sekılde de hatayı goruntulemıs olsduk
 
-    
+    //if(err.name == "CastError") console.log("test"); //kemdınıze gore hataları kullanıcıya gerı dondurme ıslemı yapılabılır
+ 
     return res.status(500).json({
         succes:false,
         message:"BİR HATA VAR LÜTFEN APİNİZİ KONTROL EDİNİZ!"
